@@ -15,18 +15,10 @@ if File.exist?(idfile) then
 end
 
 # capture png file
-tmpfile = "/tmp/image_upload#{$$}.png"
-imagefile = ARGV[0]
 
-if imagefile && File.exist?(imagefile) then
-  system "convert '#{imagefile}' '#{tmpfile}'"
-else
-  system "import '#{tmpfile}'"
-end
+system "scrot -bs tmpfile.png"
 
-if !File.exist?(tmpfile) then
-  exit
-end
+tmpfile = "tmpfile.png"
 
 imagedata = File.read(tmpfile)
 File.delete(tmpfile)
@@ -84,3 +76,4 @@ Net::HTTP::Proxy(proxy_host, proxy_port).start(HOST,80) {|http|
     File.open(idfile,"w").print(newid)
   end
 }
+
